@@ -1,0 +1,111 @@
+body {
+    background: #eef1f5;
+}
+
+.page {
+    padding: 20px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.name {
+    background: #ddd;
+    padding: 10px;
+}
+
+.edit-btn {
+    background: #2d6cdf;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.tabs {
+    margin: 20px 0;
+}
+
+.tabs a {
+    margin-right: 10px;
+    background: #2d6cdf;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+.main {
+    flex: 2;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+    
+
+
+.card button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 2px solid #2d6cdf;
+    background: white;
+    color: #2d6cdf;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #2d6cdf;
+    color: white;
+}
+
+.top button {
+    margin-left: 10px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    background: #2d6cdf;
+    color: white;
+    cursor: pointer;
+}
+
+.top button:hover {
+    background: #1f4fbf;
+}

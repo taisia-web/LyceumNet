@@ -1,0 +1,32 @@
+.create-post {
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.create-post textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.create-post button {
+    margin-top: 10px;
+    background: #2d6cdf;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+}
+
+.post {
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
