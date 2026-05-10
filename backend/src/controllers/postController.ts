@@ -5,36 +5,70 @@ export const getPosts = (req: Request, res: Response) => {
     res.json(posts);
 };
 
-export const createPost = (
-    req: Request,
-    res: Response
-) => {
+export const createPost = (req: Request, res: Response) => {
     const { author, content } = req.body;
 
-    const post = {
+    const newPost = {
         id: Date.now(),
         author,
         content,
+        likes: 0,
+        comments: []
     };
 
-    posts.unshift(post);
+    posts.unshift(newPost);
+    res.json(newPost);
+};
+
+export const likePost = (req: Request, res: Response) => {
+    const postId = Number(req.params.id);
+
+    const post = posts.find((p) => p.id === postId);
+
+    if (!post) {
+        return res.status(404).json({
+            message: "Пост не найден"
+        });
+    }
+
+    post.likes += 1;
 
     res.json(post);
 };
 
-export const deletePost = (
-    req: Request,
-    res: Response
-) => {
-    const id = Number(req.params.id);
 
-    const index = posts.findIndex((p) => p.id === id);
+export const addComment = (req: Request, res: Response) => {
+    const postId = Number(req.params.id);
 
-    if (index !== -1) {
-        posts.splice(index, 1);
+    const { comment } = req.body;
+
+    const post = posts.find((p) => p.id === postId);
+
+    if (!post) {
+        return res.status(404).json({
+            message: "Пост не найден"
+        });
     }
 
+    post.comments.push(comment);
+
+    res.json(post);
+};
+
+export const deletePost = (req: Request, res: Response) => {
+    const postId = Number(req.params.id);
+
+    const index = posts.findIndex((p) => p.id === postId);
+
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Пост не найден"
+        });
+    }
+
+    posts.splice(index, 1);
+
     res.json({
-        success: true,
+        message: "Пост удален"
     });
 };
