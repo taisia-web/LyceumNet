@@ -8,7 +8,7 @@ export default function Feed() {
     const user = api.getCurrentUser();
 
     useEffect(() => {
-        setPosts(api.getPosts());
+        api.getPosts().then(setPosts);
     }, []);
 
     const createPost = () => {
