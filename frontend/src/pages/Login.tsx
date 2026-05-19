@@ -1,16 +1,10 @@
-import {
-    Link,
-    useNavigate,
-} from "react-router-dom";
-
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
 
-    const [email, setEmail] =
-        useState("");
-
+    const [email, setEmail] = useState("");
     const [password, setPassword] =
         useState("");
 
@@ -19,8 +13,7 @@ export default function Login() {
 
     const login = () => {
         const users = JSON.parse(
-            localStorage.getItem("users") ||
-            "[]"
+            localStorage.getItem("users") || "[]"
         );
 
         const foundUser = users.find(
@@ -37,13 +30,11 @@ export default function Login() {
         }
 
         localStorage.setItem(
-            "user",
+            "currentUser",
             JSON.stringify(foundUser)
         );
 
         navigate("/feed");
-
-        window.location.reload();
     };
 
     return (
@@ -52,7 +43,8 @@ export default function Login() {
                 <h1>Вход</h1>
 
                 <input
-                    placeholder="Email"
+                    type="email"
+                    placeholder="Почта"
                     value={email}
                     onChange={(e) =>
                         setEmail(e.target.value)
@@ -68,19 +60,23 @@ export default function Login() {
                     }
                 />
 
+                <button onClick={login}>
+                    Войти
+                </button>
+
                 {error && (
                     <p className="auth-error">
                         {error}
                     </p>
                 )}
 
-                <button onClick={login}>
-                    Войти
-                </button>
-
-                <Link to="/register">
-                    Создать аккаунт
-                </Link>
+                <p>
+                    Нет аккаунта?
+                    {" "}
+                    <Link to="/register">
+                        Зарегистрироваться
+                    </Link>
+                </p>
             </div>
         </div>
     );

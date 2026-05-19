@@ -14,6 +14,8 @@ import Calendar from "./pages/Calendar";
 import Courses from "./pages/Courses";
 import Groups from "./pages/Groups";
 
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+
 import "./styles/global.css";
 import "./styles/layout.css";
 import "./styles/feed.css";
@@ -22,78 +24,80 @@ import "./styles/profile.css";
 import "./styles/friends.css";
 import "./styles/calendar.css";
 import "./styles/course.css";
+import "./styles/groups.css";
 
 function App() {
-  const user =
-    localStorage.getItem("user");
-
   return (
     <BrowserRouter>
       <Routes>
-        {!user ? (
-          <>
-            <Route
-              path="/"
-              element={<Login />}
-            />
+        <Route
+          path="/"
+          element={<Navigate to="/login" />}
+        />
 
-            <Route
-              path="/register"
-              element={<Register />}
-            />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-            <Route
-              path="*"
-              element={<Navigate to="/" />}
-            />
-          </>
-        ) : (
-          <>
-            <Route
-              path="/"
-              element={
-                <Navigate to="/feed" />
-              }
-            />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-            <Route
-              path="/feed"
-              element={<Feed />}
-            />
+        <Route
+          path="/feed"
+          element={
+            <ProtectedRoute>
+              <Feed />
+            </ProtectedRoute>
+          }
+        />
 
-            <Route
-              path="/profile"
-              element={<Profile />}
-            />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
-            <Route
-              path="/friends"
-              element={<Friends />}
-            />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends />
+            </ProtectedRoute>
+          }
+        />
 
-            <Route
-              path="/calendar"
-              element={<Calendar />}
-            />
+        <Route
+          path="/calendar"
+          element={
+            <ProtectedRoute>
+              <Calendar />
+            </ProtectedRoute>
+          }
+        />
 
-            <Route
-              path="/courses"
-              element={<Courses />}
-            />
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <Courses />
+            </ProtectedRoute>
+          }
+        />
 
-            <Route
-              path="/groups"
-              element={<Groups />}
-            />
-
-            <Route
-              path="*"
-              element={
-                <Navigate to="/feed" />
-              }
-            />
-          </>
-        )}
+        <Route
+          path="/groups"
+          element={
+            <ProtectedRoute>
+              <Groups />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

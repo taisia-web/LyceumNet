@@ -1,8 +1,9 @@
 import Layout from "../components/Layout";
 
 export default function Profile() {
-    const user = JSON.parse(
-        localStorage.getItem("user") || "{}"
+    const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") ||
+        "{}"
     );
 
     const posts = JSON.parse(
@@ -11,33 +12,48 @@ export default function Profile() {
 
     const myPosts = posts.filter(
         (post: any) =>
-            post.author === user.name
+            post.author === currentUser.name
     );
 
     return (
         <Layout>
-            <div className="profile-card">
-                <div className="profile-top">
+            <div className="profile-page">
+                <div className="profile-card">
                     <div className="profile-avatar"></div>
 
-                    <div>
-                        <h1>{user.name}</h1>
+                    <h1>
+                        {currentUser.name}
+                    </h1>
 
-                        <p>{user.email}</p>
-                    </div>
+                    <p>{currentUser.email}</p>
                 </div>
 
                 <div className="profile-posts">
                     <h2>Мои посты</h2>
 
-                    {myPosts.map(
-                        (post: any) => (
-                            <div
-                                className="post-card"
-                                key={post.id}
-                            >
-                                {post.content}
-                            </div>
+                    {myPosts.length === 0 ? (
+                        <p>
+                            У вас пока нет постов
+                        </p>
+                    ) : (
+                        myPosts.map(
+                            (
+                                post: any,
+                                index: number
+                            ) => (
+                                <div
+                                    className="post-card"
+                                    key={index}
+                                >
+                                    <h3>{post.author}</h3>
+
+                                    <p>{post.content}</p>
+
+                                    <div className="post-actions">
+                                        ❤️ {post.likes}
+                                    </div>
+                                </div>
+                            )
                         )
                     )}
                 </div>

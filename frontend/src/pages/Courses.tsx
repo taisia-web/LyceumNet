@@ -1,82 +1,107 @@
+import { useState } from "react";
 import Layout from "../components/Layout";
 
-import { useState } from "react";
+const coursesData = [
+    {
+        id: 1,
+        title: "Подготовка к ЕГЭ по математике",
+        teacher: "Иванова А.А.",
+        members: 32,
+    },
+    {
+        id: 2,
+        title: "Python для начинающих",
+        teacher: "Смирнов И.И.",
+        members: 21,
+    },
+    {
+        id: 3,
+        title: "Английский язык B2",
+        teacher: "Emily Brown",
+        members: 17,
+    },
+];
 
 export default function Courses() {
-    const [courses, setCourses] =
-        useState([
-            {
-                id: 1,
-                title: "Frontend React",
-                description:
-                    "Создание сайтов на React",
-                joined: false,
-            },
+    const [joinedCourses, setJoinedCourses] =
+        useState<number[]>([]);
 
-            {
-                id: 2,
-                title: "Python",
-                description:
-                    "Основы Python",
-                joined: false,
-            },
+    const [search, setSearch] = useState("");
 
-            {
-                id: 3,
-                title: "UI/UX",
-                description:
-                    "Дизайн интерфейсов",
-                joined: false,
-            },
-        ]);
-
-    const joinCourse = (
-        id: number
-    ) => {
-        setCourses(
-            courses.map((course) =>
-                course.id === id
-                    ? {
-                        ...course,
-                        joined: !course.joined,
-                    }
-                    : course
-            )
+    const filteredCourses =
+        coursesData.filter((course) =>
+            course.title
+                .toLowerCase()
+                .includes(search.toLowerCase())
         );
+
+    const joinCourse = (id: number) => {
+        if (joinedCourses.includes(id)) {
+            return;
+        }
+
+        setJoinedCourses([
+            ...joinedCourses,
+            id,
+        ]);
     };
 
     return (
         <Layout>
-            <h1>Курсы</h1>
+            <div className="courses-page">
+                <h1>Курсы</h1>
 
-            <div className="courses-grid">
-                {courses.map((course) => (
-                    <div
-                        className="course-card"
-                        key={course.id}
-                    >
-                        <h2>{course.title}</h2>
+                <input
+                    className="course-search"
+                    type="text"
+                    placeholder="Поиск курсов..."
+                    value={search}
+                    onChange={(e) =>
+                        setSearch(e.target.value)
+                    }
+                />
 
-                        <p>
-                            {course.description}
-                        </p>
-
-                        <button
-                            className={
-                                course.joined
-                                    ? "joined-btn"
-                                    : ""
-                            }
-                            onClick={() =>
-                                joinCourse(course.id)
-                            }
+                <div className="courses-grid">
+                    {filteredCourses.map((course) => (
+                        <div
+                            key={course.id}
+                            className="course-card"
                         >
-                            {course.joined
-                                ? "✓ Записан"
-                                : "Записаться"}
-                        </button>
-                    </div>
-                ))}
+                            <h3>{course.title}</h3>
+
+                            <p>
+                                Преподаватель:
+                                {" "}
+                                {course.teacher}
+                            </p>
+
+                            <p>
+                                Участников:
+                                {" "}
+                                {course.members}
+                            </p>
+
+                            <button
+                                className={
+                                    joinedCourses.includes(
+                                        course.id
+                                    )
+                                        ? "joined-button"
+                                        : ""
+                                }
+                                onClick={() =>
+                                    joinCourse(course.id)
+                                }
+                            >
+                                {joinedCourses.includes(
+                                    course.id
+                                )
+                                    ? "Записан"
+                                    : "Записаться"}
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
         </Layout>
     );

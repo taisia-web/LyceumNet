@@ -1,42 +1,35 @@
-import {
-    Link,
-    useNavigate,
-} from "react-router-dom";
-
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
     const navigate = useNavigate();
 
-    const [name, setName] =
-        useState("");
-
+    const [name, setName] = useState("");
     const [email, setEmail] =
         useState("");
 
     const [password, setPassword] =
         useState("");
 
+    const [error, setError] =
+        useState("");
+
     const register = () => {
-        if (
-            !name ||
-            !email ||
-            !password
-        )
+        if (!name || !email || !password) {
+            setError("Заполните все поля");
             return;
+        }
 
         const users = JSON.parse(
-            localStorage.getItem("users") ||
-            "[]"
+            localStorage.getItem("users") || "[]"
         );
 
         const existingUser = users.find(
-            (user: any) =>
-                user.email === email
+            (user: any) => user.email === email
         );
 
         if (existingUser) {
-            alert(
+            setError(
                 "Пользователь уже существует"
             );
             return;
@@ -56,13 +49,11 @@ export default function Register() {
         );
 
         localStorage.setItem(
-            "user",
+            "currentUser",
             JSON.stringify(newUser)
         );
 
         navigate("/feed");
-
-        window.location.reload();
     };
 
     return (
@@ -71,6 +62,7 @@ export default function Register() {
                 <h1>Регистрация</h1>
 
                 <input
+                    type="text"
                     placeholder="Имя"
                     value={name}
                     onChange={(e) =>
@@ -79,7 +71,8 @@ export default function Register() {
                 />
 
                 <input
-                    placeholder="Email"
+                    type="email"
+                    placeholder="Почта"
                     value={email}
                     onChange={(e) =>
                         setEmail(e.target.value)
@@ -99,9 +92,19 @@ export default function Register() {
                     Зарегистрироваться
                 </button>
 
-                <Link to="/">
+                {error && (
+                    <p className="auth-error">
+                        {error}
+                    </p>
+                )}
+
+                <p>
                     Уже есть аккаунт?
-                </Link>
+                    {" "}
+                    <Link to="/login">
+                        Войти
+                    </Link>
+                </p>
             </div>
         </div>
     );

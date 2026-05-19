@@ -37,3 +37,9 @@
     cursor: pointer;
     margin-bottom: 20px;
 }
+
+.auth-error {
+    color: red;
+    margin-top: 12px;
+    font-size: 14px;
+}
