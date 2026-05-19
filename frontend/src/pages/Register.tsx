@@ -1,41 +1,107 @@
+import {
+    Link,
+    useNavigate,
+} from "react-router-dom";
+
 import { useState } from "react";
-import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
 
 export default function Register() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
-    const handleRegister = async () => {
-        if (!name || !email) {
-            alert("Заполни все поля");
+    const [name, setName] =
+        useState("");
+
+    const [email, setEmail] =
+        useState("");
+
+    const [password, setPassword] =
+        useState("");
+
+    const register = () => {
+        if (
+            !name ||
+            !email ||
+            !password
+        )
+            return;
+
+        const users = JSON.parse(
+            localStorage.getItem("users") ||
+            "[]"
+        );
+
+        const existingUser = users.find(
+            (user: any) =>
+                user.email === email
+        );
+
+        if (existingUser) {
+            alert(
+                "Пользователь уже существует"
+            );
             return;
         }
 
-        await api.register({ name, email });
-        navigate("/");
+        const newUser = {
+            name,
+            email,
+            password,
+        };
+
+        users.push(newUser);
+
+        localStorage.setItem(
+            "users",
+            JSON.stringify(users)
+        );
+
+        localStorage.setItem(
+            "user",
+            JSON.stringify(newUser)
+        );
+
+        navigate("/feed");
+
+        window.location.reload();
     };
 
     return (
         <div className="auth-page">
-            <div className="auth-box">
-                <h2>Регистрация</h2>
+            <div className="auth-card">
+                <h1>Регистрация</h1>
 
                 <input
                     placeholder="Имя"
-                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    onChange={(e) =>
+                        setName(e.target.value)
+                    }
                 />
 
                 <input
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
-                <button onClick={handleRegister}>
-                    Создать аккаунт
+                <input
+                    type="password"
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={(e) =>
+                        setPassword(e.target.value)
+                    }
+                />
+
+                <button onClick={register}>
+                    Зарегистрироваться
                 </button>
+
+                <Link to="/">
+                    Уже есть аккаунт?
+                </Link>
             </div>
         </div>
     );

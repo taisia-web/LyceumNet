@@ -1,111 +1,86 @@
 body {
-    background: #eef1f5;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f4f8;
 }
 
-.page {
-    padding: 20px;
-}
-
-.top {
+.layout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.avatar {
-    width: 60px;
-    height: 60px;
-    background: #ccc;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.name {
-    background: #ddd;
-    padding: 10px;
-}
-
-.edit-btn {
-    background: #2d6cdf;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-}
-
-.tabs {
-    margin: 20px 0;
-}
-
-.tabs a {
-    margin-right: 10px;
-    background: #2d6cdf;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-.content {
-    display: flex;
-    gap: 20px;
-}
-
-.main {
-    flex: 2;
+    min-height: 100vh;
 }
 
 .sidebar {
-    flex: 1;
-}
-
-.card {
+    width: 260px;
     background: white;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 30px 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-    
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 40px;
+}
 
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-.card button {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 12px;
+nav a {
+    text-decoration: none;
+    background: #3b82f6;
+    color: white;
+    padding: 14px;
     border-radius: 14px;
-    border: 2px solid #2d6cdf;
-    background: white;
-    color: #2d6cdf;
-    font-weight: 600;
-    cursor: pointer;
+    transition: 0.2s;
 }
 
-.card button:hover {
-    background: #2d6cdf;
-    color: white;
+nav a:hover {
+    background: #2563eb;
 }
 
-.top button {
-    margin-left: 10px;
-    padding: 8px 14px;
-    border-radius: 10px;
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar-buttons button {
     border: none;
-    background: #2d6cdf;
-    color: white;
+    background: white;
+    border: 2px solid #3b82f6;
+    color: #2563eb;
+    padding: 14px;
+    border-radius: 16px;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.top button:hover {
-    background: #1f4fbf;
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+.logout-btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 16px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #1d4ed8;
 }

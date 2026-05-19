@@ -1,0 +1,37 @@
+.profile-card {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profile-top {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.profile-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #dbeafe;
+}
+
+.profile-top h1 {
+    margin: 0;
+}
+
+.profile-top p {
+    color: #666;
+    margin-top: 10px;
+}
+
+.profile-posts {
+    margin-top: 30px;
+}
+
+.profile-posts h2 {
+    margin-bottom: 20px;
+}

@@ -1,40 +1,86 @@
+import {
+    Link,
+    useNavigate,
+} from "react-router-dom";
+
 import { useState } from "react";
-import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
-        if (!email || !password) {
-            alert("Заполни все поля");
+    const [email, setEmail] =
+        useState("");
+
+    const [password, setPassword] =
+        useState("");
+
+    const [error, setError] =
+        useState("");
+
+    const login = () => {
+        const users = JSON.parse(
+            localStorage.getItem("users") ||
+            "[]"
+        );
+
+        const foundUser = users.find(
+            (user: any) =>
+                user.email === email &&
+                user.password === password
+        );
+
+        if (!foundUser) {
+            setError(
+                "Пароль или почта введены неправильно."
+            );
             return;
         }
 
-        await api.login(email);
-        navigate("/");
+        localStorage.setItem(
+            "user",
+            JSON.stringify(foundUser)
+        );
+
+        navigate("/feed");
+
+        window.location.reload();
     };
 
     return (
         <div className="auth-page">
-            <div className="auth-box">
-                <h2>Вход</h2>
+            <div className="auth-card">
+                <h1>Вход</h1>
 
                 <input
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
                 <input
                     type="password"
                     placeholder="Пароль"
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) =>
+                        setPassword(e.target.value)
+                    }
                 />
 
-                <button onClick={handleLogin}>Войти</button>
+                {error && (
+                    <p className="auth-error">
+                        {error}
+                    </p>
+                )}
+
+                <button onClick={login}>
+                    Войти
+                </button>
+
+                <Link to="/register">
+                    Создать аккаунт
+                </Link>
             </div>
         </div>
     );

@@ -1,44 +1,44 @@
-const USER_KEY = "user";
-const POSTS_KEY = "posts";
+const API_URL = "http://localhost:5000/api";
 
 export const api = {
-    login: async (email: string) => {
-        const user = {
-            id: 1,
-            name: email.split("@")[0],
-            email,
-        };
-
-        localStorage.setItem(USER_KEY, JSON.stringify(user));
-        return user;
+    async getPosts() {
+        const response = await fetch(`${API_URL}/posts`);
+        return response.json();
     },
 
-    register: async (data: any) => {
-        const user = {
-            id: Date.now(),
-            name: data.name,
-            email: data.email || "user@mail.com",
-        };
+    async createPost(post: any) {
+        const response = await fetch(`${API_URL}/posts`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post),
+        });
 
-        localStorage.setItem(USER_KEY, JSON.stringify(user));
-        return user;
+        return response.json();
     },
 
-    getCurrentUser: () => {
-        const user = localStorage.getItem(USER_KEY);
-        return user ? JSON.parse(user) : null;
+    async login(data: any) {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return response.json();
     },
 
-    logout: () => {
-        localStorage.removeItem(USER_KEY);
-    },
+    async register(data: any) {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
 
-    getPosts: () => {
-        const posts = localStorage.getItem(POSTS_KEY);
-        return posts ? JSON.parse(posts) : [];
-    },
-
-    savePosts: (posts: any[]) => {
-        localStorage.setItem(POSTS_KEY, JSON.stringify(posts));
+        return response.json();
     },
 };

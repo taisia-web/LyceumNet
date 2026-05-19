@@ -1,0 +1,45 @@
+.search-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 16px;
+    background: white;
+    font-size: 16px;
+}
+
+.search-box button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 15px 24px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.friend-card {
+    background: white;
+    padding: 25px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #dbeafe;
+    margin: 0 auto 20px;
+}
